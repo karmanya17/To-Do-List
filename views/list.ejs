@@ -1,14 +1,14 @@
 <%- include("header") -%>
 
 <div class="search">
-  <form class="searchForm" action="/list" method="post">
-    <input id="searchId" type="text" name="listName" placeholder="Search List" autocomplete="off">
+  <form name="searchForm" class="searchForm" action="/list" method="post" onsubmit="requiredsearch();">
+    <input id="searchId" type="text" name="listName" placeholder="Search List" autocomplete="off" >
     <button id="searchButton" type="submit" name="list" value="<%= listTitle%>"><img class="searchImg" src="images/search.png" alt=""></button>
   </form>
 </div>
-  <div class="headingbox" id="heading">
-    <h1> <%= listTitle %> </h1>
-  </div>
+<div class="headingbox" id="heading">
+  <h1> <%= listTitle %> </h1>
+</div>
 
   <div class="welcome">
     <h2>Welcome to your To-Do-List</h2>
@@ -27,18 +27,53 @@
       </form>
       <% }); %>
 
-      <form class="item" action="/" method="post">
+      <form name="itemForm" class="item" action="/" method="post" onsubmit="requireditem();">
         <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
         <button class="submitButton" type="submit" name="list" value="<%= listTitle%>">+</button>
       </form>
   </div>
   <div class="box">
     <h2 class="customlist">Create your Custom List !</h2>
-    <form class="item" action="/customlist" method="post">
+    <form name="customListForm" class="item" action="/customlist" method="post" onsubmit="requiredlist()">
       <input type="text" name="customListName" placeholder="Custom List Name" autocomplete="off">
       <button class="submitButton" type="submit" name="list" value="<%= listTitle%>">+</button>
     </form>
 
   </div>
+
+  <script>
+    function requireditem()
+    {
+    var empt = document.forms["itemForm"]["newItem"].value;
+    // var empt2 = document.forms["customListForm"]["customListName"].value;
+    if (empt == "")
+    {
+    alert("Please input a Value");
+    event.preventDefault();
+    return false;
+    }
+    }
+    function requiredlist()
+    {
+      var empt = document.forms["customListForm"]["customListName"].value;
+      if (empt == "")
+      {
+      alert("Please input a Value");
+      event.preventDefault();
+      return false;
+      }
+
+    }
+    function requiredsearch()
+    {
+      var empt = document.forms["searchForm"]["listName"].value;
+      if (empt == "")
+      {
+      alert("Please input a Value");
+      event.preventDefault();
+      return false;
+      }
+    }
+  </script>
 
 <%- include("footer") -%>

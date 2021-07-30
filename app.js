@@ -73,7 +73,8 @@ app.post("/", function(req, res){
   })
 }
 });
-app.post("/list",function(req,res){
+
+app.post("/list",function(req,res,next){
   const listName=_.capitalize(req.body.listName);
   if(listName===`Today ${day}`)
   {
@@ -127,9 +128,9 @@ app.post("/delete",function(req,res){
   const checkedItemId=req.body.checkbox;
   const listName=req.body.listName;
 
-  if(listName==="Today")
+  if(listName===`Today ${day}`)
   {
-    Item.findByIdAndRemove(checkedItemId,function(err){
+    Item.findByIdAndDelete(checkedItemId,function(err){
       if(err)
       {
         console.log(err);
